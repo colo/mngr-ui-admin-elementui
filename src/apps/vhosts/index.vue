@@ -24,7 +24,9 @@
           {{scope.row.uri}}
           <!-- <el-button type="primary" icon="el-icon-edit" size="small"><el-link type="info">info</el-link></el-button> -->
           <el-link :underline="false" :href="scope.row.schema+'://'+scope.row.uri+':'+scope.row.port" target="_blank">
-            <el-button icon="el-icon-edit"  type="text"></el-button>
+            <el-button type="text">
+              <font-awesome-icon icon="external-link-alt" />
+            </el-button>
           </el-link>
         </template>
         <template v-else-if="column.prop === 'timestamp'">{{ format_time(scope.row.timestamp) }}</template>
@@ -38,8 +40,17 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@components/flatlogic/HelloWorld.vue'
+import Vue from 'vue'
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+// Vue.component('font-awesome-layers', FontAwesomeLayers)
+// Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+// import { faSpinner } from '@fortawesome/pro-light-svg-icons/faSpinner'
+
+library.add(faExternalLinkAlt)
 
 import * as Debug from 'debug'
 const debug = Debug('apps:vhosts')
@@ -58,7 +69,7 @@ import { DataTables } from 'vue-data-tables'
 export default {
   mixins: [DataSourcesMixin],
   // extends: DataSourcesMixin,
-  components: { DataTables },
+  components: { DataTables, FontAwesomeIcon },
   name: 'Vhosts',
 
   // computed: {
