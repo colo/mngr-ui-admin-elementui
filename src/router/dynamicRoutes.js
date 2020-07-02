@@ -8,7 +8,7 @@ const dynamicRoutes = [
       path: 'vhosts',
       name: 'Vhosts',
       component: () => import(/* webpackChunkName: "vhosts.all" */ '@apps/vhosts/index.vue'),
-      meta: { title: 'Vhosts', icon: 'dashboard', roles: ['sysadmin'] }
+      meta: { title: 'Vhosts', icon: 'el-icon-link', roles: ['sysadmin'] }
     }]
   },
   // {

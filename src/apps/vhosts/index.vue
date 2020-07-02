@@ -10,8 +10,28 @@
     </div>
 
     <data-tables :data="vhosts" :filters="filters" :table-props="tableProps">
-      <el-table-column v-for="title in titles" :prop="title.prop" :label="title.label" :key="title.prop" sortable="custom">
+      <el-table-column
+        v-for="column in columns"
+        :prop="column.prop"
+        :label="column.label"
+        :key="column.prop"
+        sortable="custom"
+      >
+      <!-- :formatter="(column.prop === 'timestamp') ? format_time : null" -->
+      <template slot-scope="scope">
+        <!-- <el-tag :type="scope.row.tag === 'Home' ? 'primary' : 'success'" close-transition>{{scope.row.tag}}</el-tag> -->
+        <template v-if="column.prop === 'uri'">
+          {{scope.row.uri}}
+          <!-- <el-button type="primary" icon="el-icon-edit" size="small"><el-link type="info">info</el-link></el-button> -->
+          <el-link :underline="false" :href="scope.row.schema+'://'+scope.row.uri+':'+scope.row.port" target="_blank">
+            <el-button icon="el-icon-edit"  type="text"></el-button>
+          </el-link>
+        </template>
+        <template v-else-if="column.prop === 'timestamp'">{{ format_time(scope.row.timestamp) }}</template>
+        <template v-else>{{scope.row[column.prop]}}</template>
+      </template>
       </el-table-column>
+
     </data-tables>
   </div>
 
@@ -73,11 +93,11 @@ export default {
 
       vhosts: [],
 
-      data: [
-        { name: 'USA', rank: 1 },
-        { name: 'China', rank: 2 }
-      ],
-      titles: [
+      // data: [
+      //   { name: 'USA', rank: 1 },
+      //   { name: 'China', rank: 2 }
+      // ],
+      columns: [
         { name: 'schema', label: 'Schema', prop: 'schema', sortable: true, align: 'left' },
         {
           name: 'uri',
@@ -99,7 +119,10 @@ export default {
           align: 'left',
           label: 'Last Update',
           prop: 'timestamp',
-          sortable: true
+          sortable: true,
+          formatter: function (row) {
+            return this.format_time(row.timestamp)
+          }.bind(this)
           // format: (val, row) => `${val}%`
           // format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a')
         },
@@ -112,6 +135,7 @@ export default {
         }
       ],
       tableProps: {
+        stripe: true,
         defaultSort: {
           prop: 'timestamp',
           order: 'descending'
@@ -180,43 +204,43 @@ export default {
       /**
       * q-table
       **/
-      filter: '',
-      loading: true,
-      allColumns: ['schema', 'uri', 'port', 'host', 'timestamp', 'path'],
-      visibleColumns: ['schema', 'uri'],
-      pagination: {
-        rowsPerPage: 10
-      },
-      columns: [
-        { name: 'schema', label: 'Schema', field: 'schema', sortable: true, align: 'left' },
-        {
-          name: 'uri',
-          required: true,
-          label: 'URI',
-          align: 'left',
-          field: 'uri',
-          // field: row => row.name,
-          // format: val => `${val}`,
-          sortable: true
-          // classes: 'bg-grey-2 ellipsis',
-          // style: 'max-width: 100px',
-          // headerClasses: 'bg-secondary text-white'
-        },
-        { name: 'port', align: 'left', label: 'Port', field: 'port', sortable: true },
-        { name: 'host', align: 'left', label: 'Host', field: 'host', sortable: true },
-        {
-          name: 'timestamp',
-          align: 'left',
-          label: 'Last Update',
-          field: 'timestamp',
-          sortable: true
-          // format: (val, row) => `${val}%`
-          // format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a')
-        },
-        { name: 'path', align: 'left', label: 'Type', field: 'path', sortable: true }
-        // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-        // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
-      ],
+      // filter: '',
+      // loading: true,
+      // allColumns: ['schema', 'uri', 'port', 'host', 'timestamp', 'path'],
+      // visibleColumns: ['schema', 'uri'],
+      // pagination: {
+      //   rowsPerPage: 10
+      // },
+      // columns: [
+      //   { name: 'schema', label: 'Schema', field: 'schema', sortable: true, align: 'left' },
+      //   {
+      //     name: 'uri',
+      //     required: true,
+      //     label: 'URI',
+      //     align: 'left',
+      //     field: 'uri',
+      //     // field: row => row.name,
+      //     // format: val => `${val}`,
+      //     sortable: true
+      //     // classes: 'bg-grey-2 ellipsis',
+      //     // style: 'max-width: 100px',
+      //     // headerClasses: 'bg-secondary text-white'
+      //   },
+      //   { name: 'port', align: 'left', label: 'Port', field: 'port', sortable: true },
+      //   { name: 'host', align: 'left', label: 'Host', field: 'host', sortable: true },
+      //   {
+      //     name: 'timestamp',
+      //     align: 'left',
+      //     label: 'Last Update',
+      //     field: 'timestamp',
+      //     sortable: true
+      //     // format: (val, row) => `${val}%`
+      //     // format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a')
+      //   },
+      //   { name: 'path', align: 'left', label: 'Type', field: 'path', sortable: true }
+      //   // { name: 'calcium', label: 'Calcium (%)', field: 'calcium', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
+      //   // { name: 'iron', label: 'Iron (%)', field: 'iron', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }
+      // ],
       // sortedBy: { uri: 'asc' },
       /**
       * q-table
