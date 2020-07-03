@@ -40,18 +40,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
-
-Vue.component('font-awesome-icon', FontAwesomeIcon)
-// Vue.component('font-awesome-layers', FontAwesomeLayers)
-// Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
-// import { faSpinner } from '@fortawesome/pro-light-svg-icons/faSpinner'
-
-library.add(faExternalLinkAlt)
-
 import * as Debug from 'debug'
 const debug = Debug('apps:vhosts')
 
@@ -63,6 +51,18 @@ import * as PeriodicalSources from '@apps/vhosts/sources/periodical/index'
 import DataSourcesMixin from '@mixins/dataSources'
 
 import moment from 'moment'
+
+import Vue from 'vue'
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+// Vue.component('font-awesome-layers', FontAwesomeLayers)
+// Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+// import { faSpinner } from '@fortawesome/pro-light-svg-icons/faSpinner'
+
+library.add(faExternalLinkAlt)
 
 import { DataTables } from 'vue-data-tables'
 
@@ -131,9 +131,6 @@ export default {
           label: 'Last Update',
           prop: 'timestamp',
           sortable: true,
-          formatter: function (row) {
-            return this.format_time(row.timestamp)
-          }.bind(this)
           // format: (val, row) => `${val}%`
           // format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a')
         },

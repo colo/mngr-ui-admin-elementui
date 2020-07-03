@@ -11,6 +11,17 @@ const dynamicRoutes = [
       meta: { title: 'Vhosts', icon: 'el-icon-link', roles: ['sysadmin'] }
     }]
   },
+  {
+    path: '/',
+    component: () => import('@vue-element-admin/layout/index'),
+    // redirect: '/dashboard',
+    children: [{
+      path: 'checks',
+      name: 'Checks',
+      component: () => import(/* webpackChunkName: "vhosts.all" */ '@apps/checks/index.vue'),
+      meta: { title: 'Checks', icon: 'el-icon-check', roles: ['sysadmin'] }
+    }]
+  },
   // {
   //   path: '/vhosts',
   //   name: 'vhosts',

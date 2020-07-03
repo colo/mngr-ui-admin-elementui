@@ -1,4 +1,15 @@
 import Vue from 'vue'
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+// Vue.component('font-awesome-layers', FontAwesomeLayers)
+// Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+// import { faSpinner } from '@fortawesome/pro-light-svg-icons/faSpinner'
+
+library.add(faCheck)
+
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
