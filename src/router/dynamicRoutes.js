@@ -17,16 +17,18 @@ const dynamicRoutes = [
         // meta: {
         //   breadcrumb: { label: 'Hosts', icon: 'widgets', navbar: true }
         // },
-        // children: [
-        //   {
-        //     path: ':host',
-        //     name: 'system_host',
-        //     component: () => import(/* webpackChunkName: "system.host" */ '@apps/system/pages/host.vue'),
-        //     meta: {
-        //       breadcrumb: { label: 'Host', icon: 'widgets' }
-        //     }
-        //   }
-        // ]
+        children: [
+          {
+            path: ':host',
+            name: 'system_host',
+            component: () => import(/* webpackChunkName: "system.host" */ '@apps/system/pages/host.vue'),
+            hidden: true,
+            meta: { title: 'Host', breadcrumb: false },
+            // meta: {
+            //   breadcrumb: { label: 'Host', icon: 'widgets' }
+            // }
+          }
+        ]
       },
       {
         path: 'categories',

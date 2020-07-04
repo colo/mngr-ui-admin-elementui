@@ -243,7 +243,7 @@
 import * as Debug from 'debug'
 const debug = Debug('apps:system:pages:host')
 
-import { date } from 'quasar'
+// import { date } from 'quasar'
 
 import SystemPluginDygraph from '@apps/system/components/pluginDygraph'
 
@@ -519,9 +519,9 @@ export default {
       top: 15,
 
       /** calendar **/
-      selected_day: date.formatDate(Date.now(), 'YYYY/MM/DD'),
-      selected_hour: date.formatDate(Date.now(), 'HH') + ':00',
-      selected_minute: date.formatDate(Date.now(), 'HH:mm'),
+      selected_day: undefined, // date.formatDate(Date.now(), 'YYYY/MM/DD'),
+      selected_hour: undefined, // date.formatDate(Date.now(), 'HH') + ':00',
+      selected_minute: undefined, // date.formatDate(Date.now(), 'HH:mm'),
       // selectedDate: '',
       // convertedDates: '',
       showCalendar: false,

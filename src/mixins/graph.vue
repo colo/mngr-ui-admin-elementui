@@ -58,10 +58,10 @@ const debug = Debug('components:mixins:graph')
 // debug_internals = Debug('components:mixins:graph:Internals'),
 // debug_events = Debug('components:mixins:graph:Events')
 
-import { frameDebounce } from 'quasar'
+// import { frameDebounce } from 'quasar'
 
 // import vueBarsWrapper from 'components/wrappers/vueBars'
-import dygraphWrapper from 'components/wrappers/dygraph'
+import dygraphWrapper from '@components/wrappers/dygraph'
 // import vueEasyPieChartWrapper from 'components/wrappers/vueEasyPieChart'
 // // import jqueryKnobWrapper from 'components/wrappers/jqueryKnob'
 // import highchartsVueWrapper from 'components/wrappers/highchartsVue'
@@ -379,17 +379,17 @@ export default {
           let clean_data = true
 
           if (this.$refs[name] && typeof this.$refs[name].update === 'function' && update_data.length > 0) {
-            if (inmediate === true) {
-              clean_data = this.$refs[name].update(update_data)
-            } else {
-              frameDebounce(this.$refs[name].update(update_data))
-            }
+            // if (inmediate === true) {
+            clean_data = this.$refs[name].update(update_data)
+            // } else {
+            //   frameDebounce(this.$refs[name].update(update_data))
+            // }
           } else if (this.reactive === true) {
-            if (inmediate === true) {
-              this.$set(this, 'tabular', update_data)
-            } else {
-              frameDebounce(this.$set(this, 'tabular', update_data))
-            }
+            // if (inmediate === true) {
+            this.$set(this, 'tabular', update_data)
+            // } else {
+            //   frameDebounce(this.$set(this, 'tabular', update_data))
+            // }
           }
           // debug('graph update_chart_stat updating %s %o %d %d', name, this.$refs, this.tabular.data.length, this.$options.tabular.data.length)
 

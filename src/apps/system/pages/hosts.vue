@@ -1,40 +1,41 @@
 <template>
   <div class="app-container">
+    <div class="dashboard-editor-container">
 
-    <template v-if="hosts_data['_ALL_']">
-      <system-host-card
-        :key="'_ALL_'"
-        v-if="!host"
-        :host="'_ALL_'"
-        :host_data="hosts_data['_ALL_']"
-      />
-      <!-- :categories="host_paths" -->
-    </template>
+      <template v-if="hosts_data['_ALL_']">
+        <system-host-card
+          :key="'_ALL_'"
+          v-if="!host"
+          :host="'_ALL_'"
+          :host_data="hosts_data['_ALL_']"
+        />
+        <!-- :categories="host_paths" -->
+      </template>
 
-    <template v-for="(host_paths, host_name) in hosts_paths">
-      <system-host-card
-        :key="host_name"
-        v-if="!host || host_name === host"
-        :categories="host_paths"
-        :host="host_name"
-        :host_data="hosts_data[host_name]"
-        :show_categories="(host_name === host) ? true : false"
-      />
-    </template>
+      <template v-for="(host_paths, host_name) in hosts_paths">
+        <system-host-card
+          :key="host_name"
+          v-if="!host || host_name === host"
+          :categories="host_paths"
+          :host="host_name"
+          :host_data="hosts_data[host_name]"
+          :show_categories="(host_name === host) ? true : false"
+        />
+      </template>
 
-    <router-view :key="$route.path +'.'+ JSON.stringify($route.query)"></router-view>
+      <router-view :key="$route.path +'.'+ JSON.stringify($route.query)"></router-view>
 
-    <template v-for="(host_paths, host_name) in hosts_paths">
-      <system-host-card
-        :key="host_name+'.bottom'"
-        v-if="host_name === host"
-        :categories="host_paths"
-        :host="host_name"
-        :show_categories="(host_name === host) ? true : false"
-      />
-      <!-- :host_data="hosts_data[host_name]" -->
-    </template>
-
+      <template v-for="(host_paths, host_name) in hosts_paths">
+        <system-host-card
+          :key="host_name+'.bottom'"
+          v-if="host_name === host"
+          :categories="host_paths"
+          :host="host_name"
+          :show_categories="(host_name === host) ? true : false"
+        />
+        <!-- :host_data="hosts_data[host_name]" -->
+      </template>
+    </div>
   </div>
 </template>
 
@@ -246,6 +247,36 @@ export default {
 </script>
 
 <style>
+/**
+* vue-element-admin
+**/
+.dashboard-editor-container {
+  padding: 32px;
+  background-color: rgb(240, 242, 245);
+  position: relative;
+
+  .github-corner {
+    position: absolute;
+    top: 0px;
+    border: 0;
+    right: 0;
+  }
+
+  .chart-wrapper {
+    background: #fff;
+    padding: 16px 16px 0;
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width:1024px) {
+  .chart-wrapper {
+    padding: 8px;
+  }
+}
+/**
+* netdata
+**/
 
 .netdata-chart-alignment {
     margin-left: 55px;
