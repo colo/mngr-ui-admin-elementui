@@ -2,6 +2,18 @@
 
   <component
     v-if="chart_init === true"
+    v-observe-visibility="(chart_init === true) ? {
+      callback: visibilityChanged,
+      /* intersection: {
+        root: 0,
+        rootMargin: 0,
+        threshold: 0,
+      }, */
+      throttle: 100,
+      throttleOptions: {
+        leading: 'visible',
+      },
+    } : false"
     :is="wrapper.type+'-wrapper'"
     :id="id"
     :ref="id"
@@ -12,18 +24,6 @@
     v-bind="wrapper.props"
   >
   </component>
-  <!-- v-observe-visibility="(chart_init === true) ? {
-    callback: visibilityChanged,
-    /* intersection: {
-      root: 0,
-      rootMargin: 0,
-      threshold: 0,
-    }, */
-    throttle: 100,
-    throttleOptions: {
-      leading: 'visible',
-    },
-  } : false" -->
 
   <!-- v-scroll="scrolled" -->
   <!-- <div v-else :style="chart.style">
@@ -54,7 +54,7 @@
 
 import * as Debug from 'debug'
 
-const debug = Debug('components:mixins:graph')
+const debug = Debug('mixins:graph')
 // debug_internals = Debug('components:mixins:graph:Internals'),
 // debug_events = Debug('components:mixins:graph:Events')
 

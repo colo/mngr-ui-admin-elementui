@@ -3,7 +3,7 @@
 
 import * as Debug from 'debug'
 
-const debug = Debug('components:mixins:stat')
+const debug = Debug('mixins:stat')
 // debug_internals = Debug('components:mixins:stat:Internals'),
 // debug_events = Debug('components:mixins:stat:Events')
 
