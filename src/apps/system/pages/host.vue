@@ -1,9 +1,8 @@
 <template>
-
-  <div class="q-pa-md">
-    <b-card no-body>
-      <b-tabs pills card lazy v-model="tab">
-        <b-tab title="Now" no-body active>
+  <el-tabs v-model="activeTab" style="margin-top:15px;" type="border-card">
+    <el-tab-pane label="Now" name="periodical">
+      <!-- <keep-alive> -->
+        <!-- <div v-if="activeTab=='periodical'"> -->
           <q-toolbar class="text-primary">
             <!-- <q-btn flat round dense icon="menu" /> -->
             <q-toolbar-title>
@@ -39,8 +38,12 @@
             </Widget>
             <!-- </q-card> -->
           </template>
-        </b-tab>
-        <b-tab title="Minute" no-body>
+        <!-- </div> -->
+      <!-- </keep-alive> -->
+    </el-tab-pane>
+    <el-tab-pane label="Minute" name="minute">
+      <!-- <keep-alive> -->
+        <!-- <div v-if="activeTab=='minute'"> -->
           <q-toolbar class="text-primary">
             <!-- <q-btn flat round dense icon="menu" /> -->
             <q-toolbar-title>
@@ -92,8 +95,12 @@
               <!-- <q-separator dark /> -->
             </q-card>
           </template>
-        </b-tab>
-        <b-tab title="Hourly" no-body>
+        <!-- </div> -->
+      <!-- </keep-alive> -->
+    </el-tab-pane>
+    <el-tab-pane label="Hourly" name="hour">
+      <!-- <keep-alive> -->
+        <!-- <div v-if="activeTab=='hour'"> -->
           <q-toolbar class="text-primary">
             <!-- <q-btn flat round dense icon="menu" /> -->
             <q-toolbar-title>
@@ -150,8 +157,12 @@
             <!-- </q-card> -->
             </Widget>
           </template>
-        </b-tab>
-        <b-tab title="Daily" no-body>
+        <!-- </div> -->
+      <!-- </keep-alive> -->
+    </el-tab-pane>
+    <el-tab-pane label="Daily" name="day">
+      <!-- <keep-alive> -->
+        <!-- <div v-if="activeTab=='day'"> -->
           <q-toolbar class="text-primary">
           <!-- <q-btn flat round dense icon="menu" /> -->
           <q-toolbar-title>
@@ -203,40 +214,11 @@
           <!-- </q-card> -->
           </Widget>
         </template>
-        </b-tab>
-      </b-tabs>
-    </b-card>
-    <!-- <q-tabs
-      v-model="range_tab"
-      dense
-      class="text-grey"
-      active-color="primary"
-      indicator-color="primary"
-      align="justify"
-      narrow-indicator
-    >
-      <q-tab name="periodical" label="Now" />
-      <q-tab name="minute" label="Minute" />
-      <q-tab name="hour" label="Hourly" />
-      <q-tab name="day" label="Daily" />
-    </q-tabs>
-    <q-separator />
-    <q-tab-panels v-model="range_tab">
-      <q-tab-panel name="periodical" :key="$route.path +'.'+ JSON.stringify($route.query)+'.periodical'">
-      </q-tab-panel>
+      <!-- </div> -->
+      <!-- </keep-alive> -->
+    </el-tab-pane>
+  </el-tabs>
 
-      <q-tab-panel name="minute" :key="$route.path +'.'+ JSON.stringify($route.query)+'.minute'">
-      </q-tab-panel>
-
-      <q-tab-panel name="hour" :key="$route.path +'.'+ JSON.stringify($route.query)+'.hour'">
-      </q-tab-panel>
-
-      <q-tab-panel name="day" :key="$route.path +'.'+ JSON.stringify($route.query)+'.day'">
-
-      </q-tab-panel>
-    </q-tab-panels> -->
-
-  </div>
 </template>
 
 <script>
@@ -467,7 +449,15 @@ export default {
       id: 'system.host',
       path: 'all',
 
-      tab: 0, // current tab
+      // tab: 0, // current tab
+      activeTab: 'periodical',
+      tabs: [
+        'periodical',
+        'minute',
+        'hour',
+        'day',
+      ],
+
       day: {
         plugins_data: {},
         plugins: [],
@@ -570,14 +560,28 @@ export default {
       // }
     }
   },
-
+  created () {
+    // init the default selected tab
+    const tab = this.$route.query.tab
+    if (tab) {
+      this.activeTab = tab
+    }
+  },
   watch: {
-    tab: function (index) {
-      debug('current tab', index)
+
+    activeTab (val) {
+      this.$router.push(`${this.$route.path}?tab=${val}`)
       this.destroy_pipelines()
       this.create_pipelines()
       this.resume_pipelines()
     },
+
+    // tab: function (index) {
+    //   debug('current tab', index)
+    //   this.destroy_pipelines()
+    //   this.create_pipelines()
+    //   this.resume_pipelines()
+    // },
     selected_day () {
       debug('selected_day %s', new Date(moment(this.selected_day, 'YYYY/MM/DD').unix() * 1000))
       if (roundHours(moment(this.selected_day, 'YYYY/MM/DD').unix() * 1000) === roundHours(Date.now())) {
@@ -734,7 +738,7 @@ export default {
       // } else {
       const pipelines = [PeriodicalPipeline, MinutePipeline, HourPipeline, DayPipeline] //,
       Array.each(pipelines, function (Pipeline, index) {
-        if (this.tab === index) {
+        if (this.tabs.indexOf(this.activeTab) === index) {
           let template = Object.clone(Pipeline)
 
           debug('create_pipelines template %o', template)

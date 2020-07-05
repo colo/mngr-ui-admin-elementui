@@ -15,38 +15,39 @@
       DON'T REMOVE -> :key="view.minute"
       needed so component is recreated on key change, so a new Dygraph chart is created with new labels / columns
       -->
-      <Widget
-      :title="title"
-      >
-      <div class="netdata-chartblock-container">
-        <component
-          v-if="chart"
-          :is="tabular === false ? 'chart' : 'chart-tabular'"
-          :wrapper="{
-            type: 'dygraph',
-          }"
-          :always_update="false"
-          :ref="id"
-          :id="id"
-          :key="view.minute"
-          :EventBus="eventbus"
-          :stat="stat"
-          :chart="chart"
-          :reactive="false"
-          :no_buffer="false"
-        >
-        <!-- data: [processed_data] -->
-        <!-- stat -> length: 300, -->
-        <!-- :key="view.minute" -->
-        <!-- :always_update="true" re check this, what was used for?-->
-        </component>
-        <q-placeholder
-          v-if="show === false"
-          animated
-          class="netdata-container-with-legend"
-        />
-      </div>
-      </Widget>
+      <el-card class="box-card" :style="{width: '100%'}">
+        <div slot="header" class="clearfix">
+          {{ title }}
+        </div>
+        <div class="netdata-chartblock-container">
+          <component
+            v-if="chart"
+            :is="tabular === false ? 'chart' : 'chart-tabular'"
+            :wrapper="{
+              type: 'dygraph',
+            }"
+            :always_update="false"
+            :ref="id"
+            :id="id"
+            :key="view.minute"
+            :EventBus="eventbus"
+            :stat="stat"
+            :chart="chart"
+            :reactive="false"
+            :no_buffer="false"
+          >
+          <!-- data: [processed_data] -->
+          <!-- stat -> length: 300, -->
+          <!-- :key="view.minute" -->
+          <!-- :always_update="true" re check this, what was used for?-->
+          </component>
+          <q-placeholder
+            v-if="show === false"
+            animated
+            class="netdata-container-with-legend"
+          />
+        </div>
+      </el-card>
     <!-- </q-card-section>
   </q-card> -->
 </template>
