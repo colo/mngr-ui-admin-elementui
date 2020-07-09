@@ -1,11 +1,12 @@
 <template>
   <div>
-    <q-toolbar class="text-primary">
+    <!-- <q-toolbar class="text-primary"> -->
       <!-- <q-btn flat round dense icon="menu" /> -->
-      <q-toolbar-title>
+      <!-- <q-toolbar-title> -->
         From: {{ format_time(hour.range.start) }} - To: {{ format_time(hour.range.end) }} / Updated on: {{ format_time(hour.timestamp) }}
-      </q-toolbar-title>
+      <!-- </q-toolbar-title> -->
       <!-- <q-space class="text-primary"/> -->
+      <!-- <el-divider></el-divider> -->
       <template>
         <div class="q-pa-md">
 
@@ -20,19 +21,15 @@
 
         </div>
       </template>
-    </q-toolbar>
+    <!-- </q-toolbar> -->
     <template v-for="(category) in hour.plugins_categories">
       <!-- {{category}} -->
-      <Widget
-        :key="$route.path +'.'+ JSON.stringify($route.query)+'.hour.'+category"
-      >
+      <el-card class="box-card" :style="{width: '100%'}" :key="$route.path +'.'+ JSON.stringify($route.query)+'.hour.'+category">
+        <div slot="header" class="clearfix">
+          <div class="text-h3">{{category}}</div>
+        </div>
       <!-- <q-card :key="$route.path +'.'+ JSON.stringify($route.query)+'.hour.'+category"> -->
         <a :id="category"/>
-        <!-- <q-card-section> -->
-          <div class="text-h3">{{category}}</div>
-        <!-- </q-card-section> -->
-
-        <!-- <q-card-section> -->
           <template v-for="(name) in hour.plugins">
             <!-- {{name}} -->
             <system-plugin-dygraph
@@ -54,7 +51,7 @@
 
         <!-- <q-separator dark /> -->
       <!-- </q-card> -->
-      </Widget>
+      </el-card>
     </template>
   </div>
 

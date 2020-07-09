@@ -1,8 +1,7 @@
 <template>
-  <div class="dashboard-page">
-    <h1 class="page-title">System</h1>
-    <b-row>
-      <b-col xs="12">
+  <div class="app-container">
+    <div class="dashboard-editor-container">
+
         <template v-for="(category_hosts, category_name) in categories_paths">
           <system-category-card
             :key="category_name"
@@ -23,8 +22,7 @@
           />
         </template>
 
-      </b-col>
-    </b-row>
+    </div>
   </div>
 </template>
 

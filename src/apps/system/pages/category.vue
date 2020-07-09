@@ -2,12 +2,16 @@
   <div>
     <template v-for="(host) in plugins_hosts">
       <a :id="host" :key="host+'.anchor'"/>
-      <Widget
+      <el-card class="box-card" :style="{width: '100%'}" :key="$route.path +'.'+ JSON.stringify($route.query)+'.host.'+host">
+        <div slot="header" class="clearfix">
+          <div class="text-h3">{{host}}</div>
+        </div>
+      <!-- <Widget
         :key="$route.path +'.'+ JSON.stringify($route.query)+'.host.'+host"
-      >
+      > -->
       <!-- <q-card :key="host">
         <q-card-section> -->
-          <div class="text-h3">{{host}}</div>
+
         <!-- </q-card-section> -->
 
         <!-- <q-card-section> -->
@@ -17,7 +21,8 @@
         <!-- </q-card-section> -->
         <!-- <q-separator dark /> -->
       <!-- </q-card> -->
-      </Widget>
+      <!-- </Widget> -->
+      </el-card>
     </template>
   </div>
 </template>

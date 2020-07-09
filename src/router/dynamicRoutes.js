@@ -38,16 +38,18 @@ const dynamicRoutes = [
         // meta: {
         //   breadcrumb: { label: 'Categories', icon: 'widgets', navbar: true }
         // },
-        // children: [
-        //   {
-        //     path: ':category',
-        //     name: 'system_category',
-        //     component: () => import(/* webpackChunkName: "system.category" */ '@apps/system/pages/category.vue'),
-        //     meta: {
-        //       breadcrumb: { label: 'Category', icon: 'widgets', app: 'system' }
-        //     }
-        //   }
-        // ]
+        children: [
+          {
+            path: ':category',
+            name: 'system_category',
+            hidden: true,
+            component: () => import(/* webpackChunkName: "system.category" */ '@apps/system/pages/category.vue'),
+            meta: { title: 'Host', breadcrumb: false },
+            // meta: {
+            //   breadcrumb: { label: 'Category', icon: 'widgets', app: 'system' }
+            // }
+          }
+        ]
       }
 
     ]

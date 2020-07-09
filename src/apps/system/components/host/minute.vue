@@ -1,11 +1,12 @@
 <template>
   <div>
-    <q-toolbar class="text-primary">
+    <!-- <q-toolbar class="text-primary"> -->
       <!-- <q-btn flat round dense icon="menu" /> -->
-      <q-toolbar-title>
+      <!-- <q-toolbar-title> -->
         From: {{ format_time(minute.range.start) }} - To: {{ format_time(minute.range.end) }} / Updated on: {{ format_time(minute.timestamp) }}
-      </q-toolbar-title>
+      <!-- </q-toolbar-title> -->
       <!-- <q-space class="text-primary"/> -->
+      <!-- <el-divider></el-divider> -->
       <template>
         <div class="q-pa-md">
           <q-btn flat dense icon="access_time" />
@@ -19,16 +20,14 @@
 
         </div>
       </template>
-    </q-toolbar>
+    <!-- </q-toolbar> -->
     <template v-for="(category) in minute.plugins_categories">
       <!-- {{category}} -->
-      <q-card :key="$route.path +'.'+ JSON.stringify($route.query)+'.minute.'+category">
-        <a :id="category"/>
-        <q-card-section>
+      <el-card class="box-card" :style="{width: '100%'}" :key="$route.path +'.'+ JSON.stringify($route.query)+'.minute.'+category">
+        <div slot="header" class="clearfix">
           <div class="text-h3">{{category}}</div>
-        </q-card-section>
-
-        <q-card-section>
+        </div>
+        <a :id="category"/>
           <template v-for="(name) in minute.plugins">
             <!-- {{name}} -->
             <system-plugin-dygraph
@@ -46,10 +45,7 @@
               :interval="$options.minute.interval"
             />
           </template>
-        </q-card-section>
-
-        <!-- <q-separator dark /> -->
-      </q-card>
+        </el-card>
     </template>
   </div>
 </template>

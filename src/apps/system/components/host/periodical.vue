@@ -1,25 +1,22 @@
 <template>
   <div>
-    <q-toolbar class="text-primary">
+    <!-- <q-toolbar class="text-primary"> -->
       <!-- <q-btn flat round dense icon="menu" /> -->
-      <q-toolbar-title>
+      <!-- <q-toolbar-title> -->
         From: {{ format_time(periodical.range.start) }} - To: {{ format_time(periodical.range.end) }} / Updated on: {{ format_time(periodical.timestamp) }}
-      </q-toolbar-title>
+      <!-- </q-toolbar-title> -->
       <!-- <q-space class="text-primary"/> -->
 
-    </q-toolbar>
+    <!-- </q-toolbar> -->
+    <!-- <el-divider></el-divider> -->
     <template v-for="(category) in periodical.plugins_categories">
       <!-- {{category}} -->
       <!-- <q-card :key="$route.path +'.'+ JSON.stringify($route.query)+'.periodical.'+category"> -->
-      <Widget
-        :key="$route.path +'.'+ JSON.stringify($route.query)+'.periodical.'+category"
-      >
-        <a :id="category"/>
-        <!-- <q-card-section> -->
+      <el-card class="box-card" :style="{width: '100%'}" :key="$route.path +'.'+ JSON.stringify($route.query)+'.periodical.'+category">
+        <div slot="header" class="clearfix">
           <div class="text-h3">{{category}}</div>
-        <!-- </q-card-section> -->
-
-        <!-- <q-card-section> -->
+        </div>
+        <a :id="category"/>
           <template v-for="(name) in periodical.plugins">
             <!-- {{name}} -->
             <system-plugin-dygraph
@@ -32,7 +29,7 @@
             <!-- :interval="1" -->
           </template>
         <!-- </q-card-section> -->
-      </Widget>
+      </el-card>
       <!-- </q-card> -->
     </template>
   </div>

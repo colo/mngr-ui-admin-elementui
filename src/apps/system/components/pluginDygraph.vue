@@ -15,7 +15,7 @@
       DON'T REMOVE -> :key="view.minute"
       needed so component is recreated on key change, so a new Dygraph chart is created with new labels / columns
       -->
-      <el-card class="box-card" :style="{width: '100%'}">
+      <el-card class="box-card" :style="{width: '100%'}" shadow="never">
         <div slot="header" class="clearfix">
           {{ title }}
         </div>
@@ -41,11 +41,12 @@
           <!-- :key="view.minute" -->
           <!-- :always_update="true" re check this, what was used for?-->
           </component>
-          <q-placeholder
+          <Skeleton v-if="show === false" :count="8" ></Skeleton>
+          <!-- <q-placeholder
             v-if="show === false"
             animated
             class="netdata-container-with-legend"
-          />
+          /> -->
         </div>
       </el-card>
     <!-- </q-card-section>
@@ -105,6 +106,7 @@ import DataSourcesMixin from '@mixins/dataSources'
 // import Pipeline from '@apps/os/pipelines/index'
 
 // const MAX_FEED_DATA = 10
+import { Skeleton } from 'vue-loading-skeleton'
 
 const roundMilliseconds = function (timestamp) {
   let d = new Date(timestamp)
@@ -144,7 +146,10 @@ export default {
 
   name: 'systemPluginDygraph',
   // components: { GridView, Widget, StatsCard },
-  components: { chartTabular },
+  components: {
+    chartTabular,
+    Skeleton
+  },
 
   // pipelines: {},
   dygraph_chart: {},

@@ -30,6 +30,7 @@
     "sharedworker-loader": "^2.1.1",
     "vue": "^2.6.11",
     "vue-data-tables": "^3.4.5",
+    "vue-loading-skeleton": "^1.1.9",
     "vue-observe-visibility": "^0.4.6",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0",

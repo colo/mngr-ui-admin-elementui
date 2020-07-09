@@ -1,8 +1,42 @@
 <template>
-  <Widget
-  >
+  <el-card class="box-card" :style="{width: '100%'}">
+    <div slot="header" class="clearfix">
+      <!-- <span>Card name</span> -->
+      <router-link
+        :to="{
+          name: 'system_category',
+          params: { category: category },
+        }"
+        v-slot="{ href, route, navigate, isActive, isExactActive }"
+      >
+        <el-button
+          type="text"
+          :href="href"
+          @click="navigate"
+        >
+        {{category}}
+        </el-button>
 
-    <b-button-toolbar key-nav aria-label="Toolbar with button groups" :justified="true">
+      </router-link>
+
+    </div>
+
+    <router-link
+      v-for="host in hosts"
+      :key="category+'.'+host"
+      :to="'/system/categories/'+category+'#'+host"
+      v-slot="{ href, route, navigate, isActive, isExactActive }"
+    >
+      <el-button
+        type="text"
+        :href="'/system/categories/'+category+'#'+host"
+        @click="navigate"
+      >
+      {{host}}
+      </el-button>
+    </router-link>
+  </el-card>
+    <!-- <b-button-toolbar key-nav aria-label="Toolbar with button groups" :justified="true">
       <b-button-group class="mx-1">
         <b-button
           variant="primary"
@@ -21,16 +55,10 @@
           :key="category+'.'+host"
           :href="'/system/categories/'+category+'#'+host"
         >
-        <!-- :to="{
-          name: 'system_host',
-          params: { host: host },
-          hash: '#'+category
-        }" -->
           {{host}}
         </b-button>
       </b-button-group>
-    </b-button-toolbar>
-  </Widget>
+    </b-button-toolbar> -->
 
 </template>
 

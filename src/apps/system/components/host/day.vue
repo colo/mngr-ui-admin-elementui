@@ -1,10 +1,10 @@
 <template>
   <div>
-    <q-toolbar class="text-primary">
+    <!-- <q-toolbar class="text-primary"> -->
     <!-- <q-btn flat round dense icon="menu" /> -->
-    <q-toolbar-title>
+    <!-- <q-toolbar-title> -->
       From: {{ format_time(day.range.start) }} - To: {{ format_time(day.range.end) }} / Updated on: {{ format_time(day.timestamp) }}
-    </q-toolbar-title>
+    <!-- </q-toolbar-title> -->
     <!-- <q-space class="text-primary"/> -->
     <template>
       <div class="q-pa-md">
@@ -15,20 +15,14 @@
 
       </div>
     </template>
-  </q-toolbar>
+  <!-- </q-toolbar> -->
   <template v-for="(category) in day.plugins_categories">
-    <!-- {{category}} -->
-    <Widget
-      :key="$route.path +'.'+ JSON.stringify($route.query)+'.day.'+category"
-    >
-    <!-- <q-card :key="$route.path +'.'+ JSON.stringify($route.query)+'.day.'+category"> -->
-      <a :id="category" />
-      <!-- <q-card-section> -->
+    <el-card class="box-card" :style="{width: '100%'}" :key="$route.path +'.'+ JSON.stringify($route.query)+'.day.'+category">
+      <div slot="header" class="clearfix">
         <div class="text-h3">{{category}}</div>
-      <!-- </q-card-section> -->
-
-      <!-- <q-card-section> -->
-        <template v-for="(name) in day.plugins">
+      </div>
+      <a :id="category" />
+      <template v-for="(name) in day.plugins">
           <!-- {{name}} -->
           <system-plugin-dygraph
             v-if="name.indexOf(category) > -1"
@@ -49,7 +43,7 @@
 
       <!-- <q-separator dark /> -->
     <!-- </q-card> -->
-    </Widget>
+    </el-card>
   </template>
 </div>
 
